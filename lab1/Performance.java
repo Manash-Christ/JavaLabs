@@ -2,15 +2,12 @@ import java.util.Scanner;
 
 public class Performance {
 
-    // Data member
+   
     int[] marks;
 
-    // Constructor
     Performance() {
-        marks = new int[10]; // Requirement suggested for 60 students but will enter marks for only 10
-    }
+        marks = new int[10]; 
 
-    // Member function to read marks into the array
     void readMarks() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter marks for 10 students:");
@@ -20,7 +17,6 @@ public class Performance {
         }
     }
 
-    // Member function to return the highest mark scored in the class
     public int highestMark() {
         int highest = marks[0];
         for (int i = 1; i < 10; i++) {
@@ -31,7 +27,6 @@ public class Performance {
         return highest;
     }
 
-    // Member function to return the least mark scored in the class
     public int leastMark() {
         int least = marks[0];
         for (int i = 1; i < 10; i++) {
@@ -42,7 +37,6 @@ public class Performance {
         return least;
     }
 
-    // Member function to return the mode
     public int getMode() {
         int[] frequency = new int[101]; // Assuming marks range from 0 to 100
         for (int mark : marks) {
@@ -62,7 +56,6 @@ public class Performance {
         return mode;
     }
 
-    // Member function to return the frequency at mode
     public int getFreqAtMode() {
         int mode = getMode();
         int frequency = 0;
@@ -74,7 +67,6 @@ public class Performance {
         return frequency;
     }
 
-    // Member function to retrurn mean marks of all students
     float getMean() {
         
         int total=0;
@@ -92,7 +84,6 @@ public class Performance {
 
 
 
-    // Member function to display the result
     public void display() {
         System.out.println("Highest Mark: " + highestMark());
         System.out.println("Least Mark: " + leastMark());

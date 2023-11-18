@@ -1,28 +1,24 @@
 public class AlphabetWarGame {
 
-    // Default strengths
-    private static final int DS_W = 4;
-    private static final int DS_P = 3;
-    private static final int DS_B = 2;
-    private static final int DS_S = 1;
-    private static final int DS_M = 4;
-    private static final int DS_Q = 3;
-    private static final int DS_D = 2;
-    private static final int DS_Z = 1;
+    int DS_W = 4;
+    int DS_P = 3;
+    int DS_B = 2;
+    int DS_S = 1;
+    int DS_M = 4;
+    int DS_Q = 3;
+    int DS_D = 2;
+    int DS_Z = 1;
 
-    // Custom strengths
-    private int strengthW;
-    private int strengthP;
-    private int strengthB;
-    private int strengthS;
-    private int strengthM;
-    private int strengthQ;
-    private int strengthD;
-    private int strengthZ;
+    int strengthW;
+     int strengthP;
+     int strengthB;
+     int strengthS;
+     int strengthM;
+     int strengthQ;
+     int strengthD;
+    int strengthZ;
 
-    // Constructor for default strength
     public AlphabetWarGame() {
-        // Set default strengths
         this.strengthW = DS_W;
         this.strengthP = DS_P;
         this.strengthB = DS_B;
@@ -33,10 +29,8 @@ public class AlphabetWarGame {
         this.strengthZ = DS_Z;
     }
 
-    // Constructor for custom strength
     public AlphabetWarGame(int strengthW, int strengthP, int strengthB, int strengthS,
                            int strengthM, int strengthQ, int strengthD, int strengthZ) {
-        // Set custom strengths
         this.strengthW = strengthW;
         this.strengthP = strengthP;
         this.strengthB = strengthB;
@@ -47,21 +41,18 @@ public class AlphabetWarGame {
         this.strengthZ = strengthZ;
     }
 
-    // Determine the winner using one word
     public void determineWinner(String word) {
         int leftStrength = calculateStrength(word, true);
         int rightStrength = calculateStrength(word, false);
         printResult(leftStrength, rightStrength);
     }
 
-    // Determine the winner using separate left and right words
     public void determineWinner(String leftWord, String rightWord) {
         int leftStrength = calculateStrength(leftWord, true);
         int rightStrength = calculateStrength(rightWord, false);
         printResult(leftStrength, rightStrength);
     }
 
-    // Calculate the total strength of a word
     private int calculateStrength(String word, boolean isLeft) {
         int totalStrength = 0;
         for (char letter : word.toCharArray()) {
@@ -70,7 +61,6 @@ public class AlphabetWarGame {
         return totalStrength;
     }
 
-    // Get the strength of a left-side letter
     private int getLeftStrength(char letter) {
         switch (letter) {
             case 'w':
@@ -86,7 +76,6 @@ public class AlphabetWarGame {
         }
     }
 
-    // Get the strength of a right-side letter
     private int getRightStrength(char letter) {
         switch (letter) {
             case 'm':
