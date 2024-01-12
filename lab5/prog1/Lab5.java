@@ -29,6 +29,9 @@ class BankA implements bankINTF {
     public double gIR() {
         return intr; // 7%
     }
+    public String getInfo(){
+        return "Bank A Details {"+"balance: "+bal+", interest: "+intr+ ", return: " + bal*intr+"}"; 
+    }
 }
 
 // Bank B
@@ -75,32 +78,76 @@ public class Lab5 {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter 'own' to input balance or 'none' for default results...");
         String choice = sc.nextLine();
-        System.out.println(choice);
-        if(choice.toLowerCase().equals("none")){
-        BankA bA = new BankA();
-        BankB bB = new BankB();
-        BankC bC = new BankC();
+       // System.out.println(choice);
+        switch (choice) {
+            case "none":
+            BankA bA = new BankA();
+            BankB bB = new BankB();
+            BankC bC = new BankC();
+    
+            // Display BankA details
+            System.out.println("Bank A bal: $" + bA.gBAL());
+            System.out.println("Bank A Interest Rate: " + bA.gIR() * 100 + "%");
+            System.out.println("The deposit amount will give back: $" + bA.gBAL()*bA.gIR() + " in a year.");
+            System.out.println();
+    
+            // Display BankB details
+            System.out.println("Bank B bal: $" + bB.gBAL());
+            System.out.println("Bank B Interest Rate: " + bB.gIR() * 100 + "%");
+            System.out.println("The deposit amount will give back: $" + bB.gBAL()*bB.gIR() + " in a year.");
+    
+            System.out.println();
+    
+            // Display BankC details
+            System.out.println("Bank C bal: $" + bC.gBAL());
+            System.out.println("Bank C Interest Rate: " + bC.gIR() * 100 + "%");
+            System.out.println("The deposit amount will give back: $" + bC.gBAL()*bC.gIR() + " in a year.");
+            break;
+        
 
-        // Display BankA details
-        System.out.println("Bank A bal: $" + bA.gBAL());
-        System.out.println("Bank A Interest Rate: " + bA.gIR() * 100 + "%");
-        System.out.println("The deposit amount will give back: $" + bA.gBAL()*bA.gIR() + " in a year.");
-        System.out.println();
+            case "own":
+            System.out.println("Enter Bank name (A,B,C)");
+            String choice2 = sc.nextLine();
+            switch (choice2.toLowerCase()) {
+                case "a":
+                    System.out.println("Enter balance: ");
+                    int Bal1 = sc.nextInt();
+                    System.out.println("Enter Interest rate");
+                    int intr1 = sc.nextInt();
+                    BankA b1 = new BankA(Bal1, intr1);
+                    System.out.println(b1.getInfo());
+                    break;
+                
+                case "b":
+                    System.out.println("Enter balance: ");
+                    int Bal2 = sc.nextInt();
+                    System.out.println("Enter Interest rate");
+                    int intr2 = sc.nextInt();
+                    BankA b2 = new BankA(Bal2, intr2);
+                    System.out.println(b2.getInfo());
+                    break;
 
-        // Display BankB details
-        System.out.println("Bank B bal: $" + bB.gBAL());
-        System.out.println("Bank B Interest Rate: " + bB.gIR() * 100 + "%");
-        System.out.println("The deposit amount will give back: $" + bB.gBAL()*bB.gIR() + " in a year.");
+                case "c":
+                    System.out.println("Enter balance: ");
+                    int Bal3 = sc.nextInt();
+                    System.out.println("Enter Interest rate");
+                    int intr3 = sc.nextInt();
+                    BankA b3 = new BankA(Bal3, intr3);
+                    System.out.println(b3.getInfo());
+                    break;
+            
+                default:
+                    break;
+            }
 
-        System.out.println();
 
-        // Display BankC details
-        System.out.println("Bank C bal: $" + bC.gBAL());
-        System.out.println("Bank C Interest Rate: " + bC.gIR() * 100 + "%");
-        System.out.println("The deposit amount will give back: $" + bC.gBAL()*bC.gIR() + " in a year.");
-        }
-        if (choice.toLowerCase() == "own"){
-            System.out.println("Enter Bank A balance");
+            default:
+           // System.out.println("Enter correct");
+                break;
+        
+        
+        
+            
 
         }
 
