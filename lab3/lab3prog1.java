@@ -1,75 +1,88 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import java.util.List;
 
 class Employee {
-    private int employeeId;
-    private String employeeName;
-    private String designation;
+    // declare private variables for employee
+    static int eID;
+    private String eNAME;
+    private String DESG;
 
     public Employee(){System.out.println("This is the base Employee class");}
 
-    public Employee(int employeeId, String employeeName, String designation) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.designation = designation;
+    public Employee(int eID, String eNAME, String DESG) {
+        this.eID = eID;
+        this.eNAME = eNAME;
+        this.DESG = DESG;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    // METHOD TO RETURN EMP ID
+    public int geteID() {
+        return eID;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    // METHOD TO RETURN EMP NAME
+    public String geteNAME() {
+        return eNAME;
     }
 
-    public String getDesignation() {
-        return designation;
+    // METHOD TO RETURN EMP DESIGNATION
+    public String getDESG() {
+        return DESG;
     }
 
+    // METHOD TO DISPLAY EMP INFO
     public void displayEmployeeInfo() {
-        System.out.println("Employee ID: " + employeeId);
-        System.out.println("Employee Name: " + employeeName);
-        System.out.println("Designation: " + designation);
+        System.out.println("Employee ID: " + eID);
+        System.out.println("Employee Name: " + eNAME);
+        System.out.println("DESG: " + DESG);
     }
 
+    // METHOD TO CALCULATE BONUS
     public double calculateBonus() {
-        // Base implementation, can be overridden by derived classes
+        // overridden by derived classes
         return 0.0;
     }
 
+    // MEHTOD TO CALCULATE ANNUAL EARNING
     public double calculateAnnualEarnings() {
-        // Base implementation, can be overridden by derived classes
+        // overridden by derived classes
         return 0.0;
     }
 }
 
 class HourlyEmployee extends Employee {
-    private double hourlyRate;
-    private int hoursWorked;
+    private double hrRATE;
+    private int hrWORKED;
 
-    public HourlyEmployee(){System.out.println("This is the child hourly employee class");}
+    public HourlyEmployee(){System.out.println("This is the child class for hourly employees");}
 
-    public HourlyEmployee(int employeeId, String employeeName, String designation,
-                          double hourlyRate, int hoursWorked) {
-        super(employeeId, employeeName, designation);
-        this.hourlyRate = hourlyRate;
-        this.hoursWorked = hoursWorked;
+    // PARAMETRIC CONSTRUCTOR
+    public HourlyEmployee(int eID, String eNAME, String DESG,
+                          double hrRATE, int hrWORKED) {
+        super(eID, eNAME, DESG);
+        this.hrRATE = hrRATE;
+        this.hrWORKED = hrWORKED;
     }
 
-    public double getHourlyRate() {
-        return hourlyRate;
+    // GET HOURLY RATE
+    public double gethrRATE() {
+        return hrRATE;
     }
 
-    public int getHoursWorked() {
-        return hoursWorked;
+    // GET HOURS WORKED
+    public int gethrWORKED() {
+        return hrWORKED;
     }
 
     @Override
     public void displayEmployeeInfo() {
         super.displayEmployeeInfo();
-        System.out.println("Hourly Rate: $" + hourlyRate);
-        System.out.println("Hours Worked: " + hoursWorked);
+        System.out.println("Hourly Rate: $" + hrRATE);
+        System.out.println("Hours Worked: " + hrWORKED);
         System.out.println("Weekly Salary: $" + calculateWeeklySalary());
+        System.out.println("Monthly Salary: $" + calculateWeeklySalary()*4);
     }
 
     @Override
@@ -82,104 +95,193 @@ class HourlyEmployee extends Employee {
         return calculateWeeklySalary() * 52; // Assuming 52 weeks in a year
     }
 
+    // GET WEEKLY SALARY AS HR_WORKED*HR_RATE
     private double calculateWeeklySalary() {
-        return hourlyRate * hoursWorked;
+        return hrRATE * hrWORKED;
     }
 }
 
 class SalariedEmployee extends Employee {
-    private double monthlySalary;
+    private double mnthSAL;
 
-    public SalariedEmployee(int employeeId, String employeeName, String designation,
-                            double monthlySalary) {
-        super(employeeId, employeeName, designation);
-        this.monthlySalary = monthlySalary;
+    public SalariedEmployee(int eID, String eNAME, String DESG,
+                            double mnthSAL) {
+        super(eID, eNAME, DESG);
+        this.mnthSAL = mnthSAL;
     }
-
-    public double getMonthlySalary() {
-        return monthlySalary;
+    
+    // GET MONTHLY SALARY
+    public double getmnthSAL() {
+        return mnthSAL;
     }
 
     @Override
     public void displayEmployeeInfo() {
         super.displayEmployeeInfo();
-        System.out.println("Monthly Salary: $" + monthlySalary);
+        System.out.println("Monthly Salary: $" + mnthSAL);
         System.out.println("Weekly Salary: $" + calculateWeeklySalary());
     }
 
     @Override
     public double calculateBonus() {
-        return monthlySalary / 12 * 0.1; // Bonus for salaried employees is 10% of monthly salary
+        return mnthSAL / 12 * 0.1; // Bonus for salaried employees is 10% of monthly salary
     }
 
     @Override
     public double calculateAnnualEarnings() {
-        return monthlySalary * 12;
+        return mnthSAL * 12;
     }
 
     public double calculateWeeklySalary() {
-        return monthlySalary / 4;
+        return mnthSAL / 4;
     }
 }
 
 class ExecutiveEmployee extends SalariedEmployee {
-    private double bonusPercentage;
+    private double bnPR;
 
-    public ExecutiveEmployee(int employeeId, String employeeName, String designation,
-                             double monthlySalary, double bonusPercentage) {
-        super(employeeId, employeeName, designation, monthlySalary);
-        this.bonusPercentage = bonusPercentage;
+    public ExecutiveEmployee(int eID, String eNAME, String DESG,
+                             double mnthSAL, double bnPR) {
+        super(eID, eNAME, DESG, mnthSAL);
+        this.bnPR = bnPR;
     }
 
-    public double getBonusPercentage() {
-        return bonusPercentage;
+    // GET BONUS
+    public double getbnPR() {
+        return bnPR;
     }
 
     @Override
     public void displayEmployeeInfo() {
         super.displayEmployeeInfo();
-        System.out.println("Bonus Percentage: " + bonusPercentage + "%");
+        System.out.println("Bonus Percentage: " + bnPR + "%");
         System.out.println("Weekly Salary: $" + super.calculateWeeklySalary());
     }
 
     @Override
     public double calculateBonus() {
-        return super.calculateBonus() + getMonthlySalary() * (bonusPercentage / 100);
+        return super.calculateBonus() + getmnthSAL() * (bnPR / 100);
     }
 
     @Override
     public double calculateAnnualEarnings() {
-        return super.calculateAnnualEarnings() + getMonthlySalary() * (bonusPercentage / 100) * 12;
+        return super.calculateAnnualEarnings() + getmnthSAL() * (bnPR / 100) * 12;
+    }
+}
+
+class EmployeeList<T>{
+    int id;
+    String name;
+    String desg;
+    ArrayList<Object> List = new ArrayList<Object>();
+    EmployeeList(int id, String name, String desg){
+        this.id = id;
+        this.name = name;
+        this.desg = desg;
+        
+    }
+    List.add(id);
+
+    //List<String[]> EMP_List = new ArrayList<>();
+    Collections.addAll(EMP_List, List);
+    public static void show(){
+        List<String[]> EMP_List = new ArrayList<>();
+
+
     }
 }
 
 public class lab3prog1 {
     public static void main(String[] args) {
-        // Sample usage
-        HourlyEmployee hourlyEmployee = new HourlyEmployee(1, "John Doe", "Assistant", 15.0, 40);
+        Scanner scan  = new Scanner(System.in);
+        System.out.println("WELCOME TO EMPLOYEE INFORMATION SERVICE!");
+        System.out.println("________________________________________");
+        System.out.println("Enter choice: ");
+        String choice = scan.nextLine();
+        switch (choice) {
+            case "1":
+                System.out.println("Add Employee: ");
+                System.out.println("Enter type of employees to add: \n1. Regular\n2. Hourly\n3.Salaried\n4. Executive\n");
+                int emp = scan.nextInt();
+                switch (emp) {
+                    case 1:
+                        System.out.println("enter emplyee name: ");
+                        String name = scan.next();
+                        System.out.println("enter emplyee designation: ");
+                        String desg = scan.next();
+                        Employee emp1 = new Employee(Employee.eID++, name, desg);
+                        emp1.displayEmployeeInfo();
+
+                        break;
+                
+                    default:
+                        break;
+                }
+                break;
+        
+            default:
+            System.out.println("iohg");
+                break;
+        }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+        HourlyEmployee hourlyEmployee = new HourlyEmployee(1, "Test1", "Assistant", 15.0, 40);
         hourlyEmployee.displayEmployeeInfo();
         System.out.println("Annual Earnings: $" + hourlyEmployee.calculateAnnualEarnings());
         System.out.println("Bonus: $" + hourlyEmployee.calculateBonus());
         System.out.println();
 
-        SalariedEmployee salariedEmployee = new SalariedEmployee(2, "Jane Doe", "Professor", 5000.0);
+        SalariedEmployee salariedEmployee = new SalariedEmployee(2, "Test2", "Professor", 5000.0);
         salariedEmployee.displayEmployeeInfo();
         System.out.println("Annual Earnings: $" + salariedEmployee.calculateAnnualEarnings());
         System.out.println("Bonus: $" + salariedEmployee.calculateBonus());
         System.out.println();
 
-        ExecutiveEmployee executiveEmployee = new ExecutiveEmployee(3, "Bob Smith", "Dean", 8000.0, 15.0);
+        ExecutiveEmployee executiveEmployee = new ExecutiveEmployee(3, "Test3", "Dean", 8000.0, 15.0);
         executiveEmployee.displayEmployeeInfo();
         System.out.println("Annual Earnings: $" + executiveEmployee.calculateAnnualEarnings());
         System.out.println("Bonus: $" + executiveEmployee.calculateBonus());
         System.out.println();
+        */
 
-        // Additional features: Total Payroll
-        Employee[] employees = {hourlyEmployee, salariedEmployee, executiveEmployee};
-        displayTotalPayroll(employees);
+        //HourlyEmployee hourlyEmployee = new HourlyEmployee(101, "Nishikant Kamat", "Assistant", 20.0, 30);
+       // PayrollTest.displayEmployeeDetails(hourlyEmployee);
+       // System.out.println();
+
+        // salariedEmployee = new SalariedEmployee(102, "J. Chandrashekar", "Professor", 6000.0);
+       // PayrollTest.displayEmployeeDetails(salariedEmployee);
+        //System.out.println();
+
+        //ExecutiveEmployee executiveEmployee = new ExecutiveEmployee(103, "Bobby Deol", "Dean", 10000.0, 15.0);
+        //PayrollTest.displayEmployeeDetails(executiveEmployee);
+       // System.out.println();
+
+        //Employee[] employees = {hourlyEmployee, salariedEmployee, executiveEmployee};
+        //PayrollTest.displayTotalPayroll(employees);
     }
 
-    private static void displayTotalPayroll(Employee[] employees) {
+    private static void totalPayroll(Employee[] employees) {
         double totalPayroll = 0;
         for (Employee employee : employees) {
             totalPayroll += employee.calculateAnnualEarnings();
@@ -187,30 +289,10 @@ public class lab3prog1 {
         System.out.println("Total Payroll: $" + totalPayroll);
     }
 }
-
-public class PayrollTest {
-    public static void main(String[] args) {
-        // Test HourlyEmployee
-        HourlyEmployee hourlyEmployee = new HourlyEmployee(101, "John Hourly", "Assistant", 20.0, 30);
-        displayEmployeeDetails(hourlyEmployee);
-        System.out.println();
-
-        // Test SalariedEmployee
-        SalariedEmployee salariedEmployee = new SalariedEmployee(102, "Jane Salaried", "Professor", 6000.0);
-        displayEmployeeDetails(salariedEmployee);
-        System.out.println();
-
-        // Test ExecutiveEmployee
-        ExecutiveEmployee executiveEmployee = new ExecutiveEmployee(103, "Bob Executive", "Dean", 10000.0, 15.0);
-        displayEmployeeDetails(executiveEmployee);
-        System.out.println();
-
-        // Display total payroll
-        Employee[] employees = {hourlyEmployee, salariedEmployee, executiveEmployee};
-        displayTotalPayroll(employees);
-    }
-
-    private static void displayEmployeeDetails(Employee employee) {
+/*
+class PayrollTest {
+    
+   public static void displayEmployeeDetails(Employee employee) {
         System.out.println("Employee Details:");
         System.out.println("-----------------");
         employee.displayEmployeeInfo();
@@ -220,14 +302,16 @@ public class PayrollTest {
         System.out.println();
     }
 
-    private static void displayTotalPayroll(Employee[] employees) {
+   
+public static void displayTotalPayroll(Employee[] employees) {
         System.out.println("Total Payroll Details:");
         System.out.println("----------------------");
-        double totalPayroll = 0;
+        double totalPayrolll = 0;
         for (Employee employee : employees) {
-            displayEmployeeDetails(employee);
-            totalPayroll += employee.calculateAnnualEarnings();
+            totalPayroll(employee);
+            totalPayrolll += employee.calculateAnnualEarnings();
         }
         System.out.println("Total Payroll: $" + totalPayroll);
     }
 }
+*/
