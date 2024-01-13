@@ -43,11 +43,11 @@ public class WaterStorage {
         for(int i=haits.length-2; i>=0;i--) right[i] = Math.max(right[i+1], haits[i]);
         System.out.println(Arrays.toString(right));
 
-        //
+        //ITIRATE THROUGH THE LOOP AND ADD WATER STORED AS THE MINIMUM OF LEFT AND RIGHT MINUS THE HEIGHT OF THE INDEX
         for (int i = 0; i < haits.length; i++) waterStored += Math.min(left[i], right[i]) - haits[i];
 
 
-
+        //PRINT AMOUNT OF WATER STORED
         System.out.println("The amount of water stored is: " + waterStored);
     }
 }
