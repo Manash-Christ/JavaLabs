@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Arrays;
 
 class Employee {
     // declare private variables for employee
     static int eID;
-    private String eNAME;
-    private String DESG;
+    String eNAME;
+    String DESG;
 
     public Employee(){System.out.println("This is the base Employee class");}
 
@@ -37,6 +38,7 @@ class Employee {
         System.out.println("Employee ID: " + eID);
         System.out.println("Employee Name: " + eNAME);
         System.out.println("DESG: " + DESG);
+        //System.out.println("Bonus rate: ");
     }
 
     // METHOD TO CALCULATE BONUS
@@ -53,8 +55,8 @@ class Employee {
 }
 
 class HourlyEmployee extends Employee {
-    private double hrRATE;
-    private int hrWORKED;
+    double hrRATE;
+    int hrWORKED;
 
     public HourlyEmployee(){System.out.println("This is the child class for hourly employees");}
 
@@ -102,7 +104,7 @@ class HourlyEmployee extends Employee {
 }
 
 class SalariedEmployee extends Employee {
-    private double mnthSAL;
+    double mnthSAL;
 
     public SalariedEmployee(int eID, String eNAME, String DESG,
                             double mnthSAL) {
@@ -138,7 +140,7 @@ class SalariedEmployee extends Employee {
 }
 
 class ExecutiveEmployee extends SalariedEmployee {
-    private double bnPR;
+    double bnPR;
 
     public ExecutiveEmployee(int eID, String eNAME, String DESG,
                              double mnthSAL, double bnPR) {
@@ -169,6 +171,7 @@ class ExecutiveEmployee extends SalariedEmployee {
     }
 }
 
+/*
 class EmployeeList<T>{
     int id;
     String name;
@@ -190,35 +193,123 @@ class EmployeeList<T>{
 
     }
 }
+*/
 
 public class lab3prog1 {
     public static void main(String[] args) {
+        List<Employee> emplist=new ArrayList<Employee>();
+        List<HourlyEmployee> emplist2=new ArrayList<HourlyEmployee>();
+        List<SalariedEmployee> emplist3=new ArrayList<SalariedEmployee>();
+        List<ExecutiveEmployee> emplist4=new ArrayList<ExecutiveEmployee>();
+
+        //listOfLists.add(2, newList);
+
         Scanner scan  = new Scanner(System.in);
         System.out.println("WELCOME TO EMPLOYEE INFORMATION SERVICE!");
         System.out.println("________________________________________");
-        System.out.println("Enter choice: ");
+        System.out.println("1. Adding employee & 2. Displaying details");
         String choice = scan.nextLine();
         switch (choice) {
             case "1":
                 System.out.println("Add Employee: ");
-                System.out.println("Enter type of employees to add: \n1. Regular\n2. Hourly\n3.Salaried\n4. Executive\n");
+                System.out.println("Enter type of employees to add: \n1. Regular\n2. Hourly\n3. Salaried\n4. Executive\n");
                 int emp = scan.nextInt();
                 switch (emp) {
                     case 1:
-                        System.out.println("enter emplyee name: ");
-                        String name = scan.next();
-                        System.out.println("enter emplyee designation: ");
-                        String desg = scan.next();
-                        Employee emp1 = new Employee(Employee.eID++, name, desg);
-                        emp1.displayEmployeeInfo();
-
+                        System.out.println("Enter the number of employees to enter");
+                        int numemp = scan.nextInt();
+                        for(int i=0;i<numemp;i++){
+                            System.out.println("enter emplyee name: ");
+                            String name = scan.next();
+                            System.out.println("enter emplyee designation: ");
+                            String desg = scan.next();
+                            Employee emp1 = new Employee(Employee.eID++, name, desg);
+                            emp1.displayEmployeeInfo();
+                            emplist.add(emp1);
+                        }
+                        
                         break;
-                
+                        
+                    case 2:
+                        System.out.println("Enter the number of employees to enter");
+                        int numemp1 = scan.nextInt();
+                        for(int i=0;i<numemp1;i++){
+                            System.out.println("enter emplyee name: ");
+                            String name = scan.next();
+                            System.out.println("enter emplyee designation: ");
+                            String desg = scan.next();
+                            System.out.println("enter hours worked");
+                            int hr_worked = scan.nextInt();
+                            System.out.println("enter hourly rate");
+                            double hr_rate = scan.nextDouble();
+
+                            HourlyEmployee emp2 = new HourlyEmployee(HourlyEmployee.eID++, name, desg,hr_rate,hr_worked);
+                            emp2.displayEmployeeInfo();
+                            emplist2.add(emp2);
+                        }
+                        for(Employee e:emplist2){
+                            System.out.println(e);
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("Enter the number of employees to enter");
+                        int numemp3 = scan.nextInt();
+                        for(int i=0;i<numemp3;i++){
+                            System.out.println("enter emplyee name: ");
+                            String name = scan.next();
+                            System.out.println("enter emplyee designation: ");
+                            String desg = scan.next();
+                            System.out.println("enter monthly salary; ");
+                            double mthsal = scan.nextDouble();
+                            SalariedEmployee emp3 = new SalariedEmployee(SalariedEmployee.eID++, name, desg, mthsal);
+                            emp3.displayEmployeeInfo();
+                            emplist3.add(emp3);
+                        }
+                        for(Employee e:emplist3){
+                            System.out.println(e);
+                        }
+                        break;
+
+                    case 4:
+                        System.out.println("Enter the number of employees to enter");
+                        int numemp4 = scan.nextInt();
+                        for(int i=0;i<numemp4;i++){
+                            System.out.println("enter emplyee name: ");
+                            String name = scan.next();
+                            System.out.println("enter emplyee designation: ");
+                            String desg = scan.next();
+                            System.out.println("enter monthly salary: ");
+                            int Sal = scan.nextInt();
+                            System.out.println("enter bonus rate: ");
+                            double bon = scan.nextDouble();
+                            ExecutiveEmployee emp4 = new ExecutiveEmployee(ExecutiveEmployee.eID++, name, desg, Sal, bon );
+                            emp4.displayEmployeeInfo();
+                            emplist.add(emp4);
+                        }
+                        for(Employee e:emplist){
+                            System.out.println(e);
+                        }
+                        break;
+                    
                     default:
                         break;
                 }
-                break;
-        
+             //   break;
+            case "2":
+            for(Employee e:emplist){
+                System.out.println("ID: "+e.geteID()+", name: "+e.geteNAME()+", designation: "+e.getDESG());
+            }
+            for(HourlyEmployee e:emplist2){
+                System.out.println("ID: "+e.geteID()+", name: "+e.geteNAME()+", designation: "+e.getDESG()+ ", hourly_rate: "+e.gethrRATE()+", hours_worked: "+e.gethrWORKED());
+            }
+            for(SalariedEmployee e:emplist3){
+                System.out.println("ID: "+e.geteID()+", name: "+e.geteNAME()+", designation: "+e.getDESG()+", salary: "+e.getmnthSAL());
+            }
+            for(ExecutiveEmployee e:emplist4){
+                System.out.println("ID: "+e.geteID()+", name: "+e.geteNAME()+", designation: "+e.getDESG()+", salary; "+e.getmnthSAL()+", bonus_rate: "+e.getbnPR());
+            }
+
             default:
             System.out.println("iohg");
                 break;
