@@ -1,6 +1,26 @@
 import java.util.Scanner;
 import java.util.Arrays;
 public class Perm{
+
+
+
+   public static int findCombinationsCount(int sum, int vals[]) {
+        if (sum < 0) {
+            return 0;
+        }
+        if (vals == null || vals.length == 0) {
+            return 0;
+        }
+
+        int dp[] = new int[sum + 1];
+        dp[0] = 1;
+        for (int i = 0; i < vals.length; ++i) {
+            for (int j = vals[i]; j <= sum; ++j) {
+                dp[j] += dp[j - vals[i]];
+            }
+        }
+        return dp[sum];
+    }
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
         int Size,Sum;
@@ -20,15 +40,9 @@ public class Perm{
         System.out.println("Sum: "+Sum);
         System.out.println(Arrays.toString(Coins));
 
-        int[][] newSum = new int[20][Size]; 
+        System.out.println(findCombinationsCount(Sum, Coins));
 
-        for(int i=0;i<Size;i++){
-            for(int j=1;j<Size;j++){
-                if(Coins[i]+Coins[j]==Sum){
-                    
-                }
-            }
-        }
+        
     }
 
    // int[] combinations(int Size,int Sum,int[] Coins){

@@ -35,9 +35,9 @@ class OrderCancellationException extends Exception {
     }
 }
 
-class EnhancedOrderFulfillmentSystem {
+class Enhancedodf {
     private List<Order> orders = new ArrayList<>();
-    private List<Thread> workerThreads = new ArrayList<>();
+    private List<Thread> workers = new ArrayList<>();
     private boolean processingStarted = false;
 
     public void placeOrder(Order order) {
@@ -50,7 +50,7 @@ class EnhancedOrderFulfillmentSystem {
         }
 
         for (Order order : orders) {
-            Thread workerThread = new Thread(() -> {
+            Thread worker = new Thread(() -> {
                 try {
                     processOrder(order);
                 } catch (InsufficientInventoryException | OrderCancellationException e) {
@@ -58,15 +58,15 @@ class EnhancedOrderFulfillmentSystem {
                 }
             });
 
-            workerThreads.add(workerThread);
-            workerThread.start();
+            workers.add(worker);
+            worker.start();
         }
 
         processingStarted = true;
     }
 
     public void waitForCompletion() {
-        for (Thread thread : workerThreads) {
+        for (Thread thread : workers) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
@@ -106,21 +106,21 @@ class EnhancedOrderFulfillmentSystem {
 
 public class Prog2 {
     public static void main(String[] args) {
-        EnhancedOrderFulfillmentSystem orderFulfillmentSystem = new EnhancedOrderFulfillmentSystem();
+        Enhancedodf odf = new Enhancedodf();
 
-        List<Item> items1 = List.of(new Item(1, "ItemA", 2), new Item(2, "ItemB", 3));
-        Order order1 = new Order(101, items1);
+        List<Item> items1= List.of(new Item(1, "ItemA", 2), new Item(2, "ItemB", 3));
+       Order order1 = new Order(101, items1);
 
         List<Item> items2 = List.of(new Item(3, "ItemC", 1), new Item(4, "ItemD", 4));
         Order order2 = new Order(102, items2);
 
-        orderFulfillmentSystem.placeOrder(order1);
-        orderFulfillmentSystem.placeOrder(order2);
+        odf.placeOrder(order1);
+        odf.placeOrder(order2);
 
-        orderFulfillmentSystem.startProcessing();
-        orderFulfillmentSystem.waitForCompletion();
+        odf.startProcessing();
+        odf.waitForCompletion();
 
-        orderFulfillmentSystem.trackOrderStatus(101);
-        orderFulfillmentSystem.trackOrderStatus(102);
+        odf.trackOrderStatus(101);
+        odf.trackOrderStatus(102);
     }
 }
