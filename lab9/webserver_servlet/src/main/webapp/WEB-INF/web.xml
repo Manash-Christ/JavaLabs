@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>Msc</servlet-name>
+        <servlet-class>com.christuniv.webserver_servlet.Msc</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServelt</servlet-name>
+        <servlet-class>com.christuniv.webserver_servlet.LoginServelt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Msc</servlet-name>
+        <url-pattern>/Msc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServelt</servlet-name>
+        <url-pattern>/LoginServelt</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
